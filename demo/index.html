@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>gist-loader Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../spiral-gistloader.html">
+    <style>
+      #dump {
+        background-color: #eee;
+        font-family: monospace;
+        padding: 0.9em;
+        margin: 0.9em;
+      }
+    </style>
+  </head>
+
+  <body class="fullbleed">
+    <div class="horizontal layout fit">
+      <div>
+        <spiral-gistloader id="gloader">
+          <span>"spiral-gistloader"</span>
+        </spiral-gistloader>
+      </div>
+      <div class="flex">
+        <div id="dump"></div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    var gistLoader = document.getElementById('gloader');
+    var dump = document.getElementById('dump');
+    
+    gistLoader.onGistLoaded = function (gistFile) {
+      dump.innerText = gistFile.code;
+    };
+  </script>
+</html>
