@@ -9,6 +9,9 @@
     "web-component",
     "web-components",
     "polymer",
+    "audio",
+    "spiral",
+    "web-audio",
     "github",
     "gist"
   ],
