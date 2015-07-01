@@ -17,7 +17,7 @@ provided. The code can be accessed when a menu item clicked.
 
 Example:
 
-  <spiral-gistloader></spiral-gistloader>
+    <spiral-gistloader></spiral-gistloader>
 
 @demo
 -->
@@ -72,17 +72,17 @@ Example:
           on-change="_handleGistIdChange"
           class="flex section-url-input">
           <label>Gist URL
-            <a href="{{lastSuccessfulGistURL}}" target="_blank">
+            <a href="{{_lastSuccessfulGistURL}}" target="_blank">
               <iron-icon icon="link" item-icon></iron-icon>
             </a>
           </label>
-          <input is="iron-input" bind-value="{{gistURL}}">
+          <input is="iron-input" bind-value="{{_gistURL}}">
         </paper-input-container>
       </div>
 
       <div class="section flex">
         <paper-menu class="list section-gist-list">
-          <template id="gistList" is="dom-repeat" items="{{gistFiles}}">
+          <template id="gistList" is="dom-repeat" items="{{_gistFiles}}">
             <paper-item on-click="_handleSelectedGist">
               <iron-icon icon="description" item-icon></iron-icon>
               <span>{{item.name}}</span>
@@ -111,20 +111,23 @@ Example:
 
     properties: {
 
-      gistURL: {
+      _gistURL: {
         type: String,
         notify: true
       },
 
-      lastSuccessfulGistURL: {
+      _lastSuccessfulGistURL: {
         type: String,
         value: 'https://gist.github.com/5d2bfc3d7d6ee009ac2c'
       },
 
-      gistURL: String,
+      _gistFiles: Array,
 
-      gistFiles: Array,
-
+      /**
+       * Define a callback function to handle a loaded gist file.
+       * @type {Function}
+       * @params {Function} Gist callback function for onGistLoaded event.
+       */
       onGistLoaded: {
         type: Function,
         value: null
@@ -137,7 +140,7 @@ Example:
     ready: function() {
 
       // Initial XHR with the default URL.
-      this.setGistURL(this.lastSuccessfulGistURL);
+      this.setGistURL(this._lastSuccessfulGistURL);
 
     },
 
@@ -193,12 +196,12 @@ Example:
      */
     _handleXhrResponse: function (event) {
       // Successful transaction. Update the last known URL.
-      this.set('lastSuccessfulGistURL', this.gistURL);
+      this.set('_lastSuccessfulGistURL', this._gistURL);
 
-      this.gistFiles = [];
+      this._gistFiles = [];
       var files = event.detail.response.files;
       for (var gist in files) {
-        this.push('gistFiles', {
+        this.push('_gistFiles', {
           name: gist,
           code: files[gist].content
         });
@@ -211,7 +214,7 @@ Example:
      */
     _handleXhrError: function (event) {
       // Failed. Fall back to the last known URL.
-      this.set('gistURL', this.lastSuccessfulGistURL);
+      this.set('_gistURL', this._lastSuccessfulGistURL);
 
       // Display error message.
       console.log(event.detail.error.message);
@@ -237,12 +240,12 @@ Example:
       var gistId = this._extractGistId(url);
       if (gistId) {
         var newURL = 'https://gist.github.com/' + gistId;
-        this.set('gistURL', newURL);
+        this.set('_gistURL', newURL);
         this.$.gistXHR.url = 'https://api.github.com/gists/' + gistId;
         this.$.gistXHR.generateRequest();
       }
       else {
-        this.set('gistURL', this.lastSuccessfulGistURL);
+        this.set('_gistURL', this._lastSuccessfulGistURL);
         this._displayToastMessage('Invalid URL.');
       }
     }
