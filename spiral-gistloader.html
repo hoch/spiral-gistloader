@@ -12,11 +12,12 @@ MIT License. Copyright (c) 2015 Hongchan Choi. All rights reserved.
 <link rel="import" href="../paper-toast/paper-toast.html">
 
 <!--
-A Polymer element that accesses/displays gists by URL.
+This element displays a list of gists as a menu when a valid gist URL is 
+provided. The code can be accessed when a menu item clicked.
 
 Example:
 
-    <spiral-gistloader></spiral-gistloader>
+  <spiral-gistloader></spiral-gistloader>
 
 @demo
 -->
@@ -140,21 +141,9 @@ Example:
 
     },
 
-    attached: function() {
-      // `attached` fires once the element and its parents have been inserted
-      // into a document.
-      //
-      // This is a good place to perform any work related to your element's
-      // visual state or active behavior (measuring sizes, beginning animations,
-      // loading resources, etc).
-    },
+    attached: function() {},
 
-    detached: function() {
-      // The analog to `attached`, `detached` fires when the element has been
-      // removed from a document.
-      //
-      // Use this to clean up anything you did in `attached`.
-    },
+    detached: function() {},
 
     /**
      * Internal: validate, truncate and extract Gist ID.
