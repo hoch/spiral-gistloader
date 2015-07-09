@@ -21,7 +21,11 @@
         padding: 1.0em;
       }
 
-      #dump {
+      #eGistLoader {
+        width: 30%;
+      }
+
+      #eDump {
         color: #FFFFFF;
         background-color: #37474F;
         font-family: monospace;
@@ -48,11 +52,9 @@
 
         <!-- demo -->
         <div class="horizontal layout">
-          <spiral-gistloader id="gloader">
-            <span>"some text here."</span>
-          </spiral-gistloader>
+          <spiral-gistloader id="eGistLoader"></spiral-gistloader>
           <div class="flex">
-            <div id="dump"></div>
+            <div id="eDump"></div>
           </div>
         </div>
 
@@ -60,11 +62,11 @@
     </div>
 
     <script>
-      var gistLoader = document.getElementById('gloader');
-      var dump = document.getElementById('dump');
+      var eGistLoader = document.querySelector('#eGistLoader');
+      var eDump = document.querySelector('#eDump');
       
-      gistLoader.onGistLoaded = function (gistFile) {
-        dump.innerText = gistFile.code;
+      eGistLoader.onGistLoaded = function (gistFile) {
+        eDump.innerText = gistFile.code;
       };
     </script>
   </body>

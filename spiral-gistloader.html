@@ -5,10 +5,11 @@ MIT License. Copyright (c) 2015 Hongchan Choi. All rights reserved.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../paper-menu/paper-menu.html">
+<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 
 <!--
@@ -25,13 +26,15 @@ Example:
 
   <style>
     :host {
-      display: block;
-      box-sizing: border-box;
-      min-width: 22em;
+      @apply(--layout);
+      background-color: #FFF;
+      padding: 1em;
+      width: 100%;
     }
 
-    .section {
-      padding: 0.45em;
+    .gist-url {
+      margin-bottom: 0.45em;
+      width: 320px;
     }
 
     .section-url-input {
@@ -39,13 +42,19 @@ Example:
     }
 
     .section-url-input input {
-      font-size: 0.9em;
+      font-size: 0.85em;
+      color: var(--google-blue-700);
     }
 
     .section-gist-list paper-item {
-      font-size: 0.9em;
+      font-size: 0.85em;
       padding: 0;
       min-height: 2.25em;
+    }
+
+    .item-icon {
+      color: var(--paper-grey-600);
+      margin-right: 0.3em;
     }
 
     paper-toast {
@@ -58,21 +67,15 @@ Example:
   </style>
 
   <template>
-
-    <iron-ajax id="gistXHR"
-      handle-as="json"
-      on-response="_handleXhrResponse"
-      on-error="_handleXhrError"></iron-ajax>
-
     <div class="vertical layout">
 
-      <div class="section">
+      <div class="gist-url">
         <paper-input-container always-float-label
           id="gistInput"
           on-change="_handleGistIdChange"
           class="flex section-url-input">
           <label>Gist URL
-            <a href="{{_lastSuccessfulGistURL}}" target="_blank">
+            <a href="{{_lastSuccessfulGistURL}}" target="_blank" >
               <iron-icon icon="link" item-icon></iron-icon>
             </a>
           </label>
@@ -80,24 +83,28 @@ Example:
         </paper-input-container>
       </div>
 
-      <div class="section flex">
+      <div class="flex">
         <paper-menu class="list section-gist-list">
           <template id="gistList" is="dom-repeat" items="{{_gistFiles}}">
             <paper-item on-click="_handleSelectedGist">
-              <iron-icon icon="description" item-icon></iron-icon>
+              <iron-icon icon="description" item-icon class="item-icon"></iron-icon>
               <span>{{item.name}}</span>
             </paper-item>
           </template>
         </paper-menu>
       </div>
 
-      <div class="section">
+      <div>
         <content></content>
       </div>
 
     </div>
 
-  <paper-toast id="toast"></paper-toast>
+    <iron-ajax id="gistXHR"
+      handle-as="json"
+      on-response="_handleXhrResponse"
+      on-error="_handleXhrError"></iron-ajax>
+    <paper-toast id="toast"></paper-toast>
 
   </template>
 
