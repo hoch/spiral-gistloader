@@ -72,7 +72,7 @@ Example:
       <div class="gist-url">
         <paper-input-container always-float-label
           id="gistInput"
-          on-change="_handleGistIdChange"
+          on-change="_handleGistIdChange" on-keydown="_onEnterKey"
           class="flex section-url-input">
           <label>Gist URL
             <a href="{{_lastSuccessfulGistURL}}" target="_blank" >
@@ -236,6 +236,12 @@ Example:
       var selectedGist = this.$.gistList.itemForElement(event.target);
       if (this.onGistLoaded) {
         this.onGistLoaded(selectedGist);
+      }
+    },
+
+    _onEnterKey: function (event) {
+      if (event.keyCode === 13) {
+        this._handleGistIdChange();
       }
     },
 
