@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>&lt;spiral-gistloader&gt; | Spiral UI</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../spiral-gistloader.html">
+    <style>
+      .element-info {
+        padding: 1.0em;
+        margin-bottom: 1.0em;
+        box-shadow: 2px 0 5px #607D8B;
+        color: #263238;
+        background-color: #ECEFF1;
+        font-family: sans-serif;
+      }
+
+      .element-demo {
+        padding: 1.0em;
+      }
+
+      #eGistLoader {
+        width: 30%;
+      }
+
+      #eDump {
+        color: #FFFFFF;
+        background-color: #37474F;
+        font-family: monospace;
+        padding: 0.9em;
+        margin: 0.9em;
+        border-radius: 0.25em;
+        min-height: 45em;
+        box-shadow: inset 0 0 10px #000000;
+      }
+    </style>
+  </head>
+
+  <body class="fullbleed">
+    <div class="vertical layout fit">
+      <div class="element-info">
+
+        <!-- element description -->
+        <h1><code>&lt;spiral-gistloader&gt;</code></h1>
+        <p>This element displays a list of gists as a menu when a valid gist URL
+          is provided. The code can be accessed when a menu item clicked.</p>
+
+      </div>
+      <div class="element-demo">
+
+        <!-- demo -->
+        <div class="horizontal layout">
+          <spiral-gistloader id="eGistLoader"></spiral-gistloader>
+          <div class="flex">
+            <div id="eDump"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      var eGistLoader = document.querySelector('#eGistLoader');
+      var eDump = document.querySelector('#eDump');
+      
+      eGistLoader.onGistLoaded = function (gistFile) {
+        eDump.innerText = gistFile.code;
+      };
+    </script>
+  </body>
+
+</html>
